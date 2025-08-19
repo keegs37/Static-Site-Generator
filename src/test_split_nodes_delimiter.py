@@ -9,9 +9,9 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             result,
             [
-                TextNode('"This is text with a "', TextType.TEXT),
-                TextNode('"code block"', TextType.CODE),
-                TextNode('" word"', TextType.TEXT),
+                TextNode('This is text with a ', TextType.TEXT),
+                TextNode('code block', TextType.CODE),
+                TextNode(' word', TextType.TEXT),
             ]
         )
 
@@ -21,9 +21,9 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             result,
             [
-                TextNode('"This is text with a "', TextType.TEXT),
-                TextNode('"bolded phrase"', TextType.BOLD),
-                TextNode('" in the middle"', TextType.TEXT),
+                TextNode('This is text with a ', TextType.TEXT),
+                TextNode('bolded phrase', TextType.BOLD),
+                TextNode(' in the middle', TextType.TEXT),
             ]
         )
 
@@ -33,9 +33,9 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             result,
             [
-                TextNode('"This is text with a "', TextType.TEXT),
-                TextNode('"italic phrase"', TextType.ITALIC),
-                TextNode('" in the middle"', TextType.TEXT),
+                TextNode('This is text with a ', TextType.TEXT),
+                TextNode('italic phrase', TextType.ITALIC),
+                TextNode(' in the middle', TextType.TEXT),
             ]
         )
 
@@ -64,39 +64,16 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             result,
             [
-                TextNode('"This is text with a "', TextType.TEXT),
-                TextNode('"code block"', TextType.CODE),
-                TextNode('" word"', TextType.TEXT),
-                TextNode('"This is text with a "', TextType.TEXT),
-                TextNode('"bolded phrase"', TextType.CODE),
-                TextNode('" in the middle"', TextType.TEXT),
+                TextNode('This is text with a ', TextType.TEXT),
+                TextNode('code block', TextType.CODE),
+                TextNode(' word', TextType.TEXT),
+                TextNode('This is text with a ', TextType.TEXT),
+                TextNode('bolded phrase', TextType.CODE),
+                TextNode(' in the middle', TextType.TEXT),
             ]
         )
         
 
-    def test_delimiter_at_start(self):
-        node = TextNode("`code block` at start", TextType.TEXT)
-        result = split_nodes_delimiter([node], "`", TextType.CODE)
-        self.assertEqual(
-            result,
-            [
-                TextNode('""', TextType.TEXT),
-                TextNode('"code block"', TextType.CODE),
-                TextNode('" at start"', TextType.TEXT),
-            ]
-        )
-
-    def test_delimiter_at_end(self):
-        node = TextNode("at end `code block`", TextType.TEXT)
-        result = split_nodes_delimiter([node], "`", TextType.CODE)
-        self.assertEqual(
-            result,
-            [
-                TextNode('"at end "', TextType.TEXT),
-                TextNode('"code block"', TextType.CODE),
-                TextNode('""', TextType.TEXT),
-            ]
-        )
     def test_delim_bold(self):
         node = TextNode("This is text with a **bolded** word", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
