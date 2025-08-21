@@ -23,7 +23,7 @@ class TestExtractMarkdownImages(unittest.TestCase):
 
     # --- Mixed content: desired behavior vs current implementation ---
 
-    @unittest.expectedFailure
+    
     def test_images_mixed_with_links_should_return_only_images(self):
         text = "![logo](https://img/logo.png) and [site](https://example.com)"
         # Desired: only the image tuple, not the link
@@ -101,7 +101,7 @@ class TestExtractMarkdownLinks(unittest.TestCase):
         with self.assertRaises(Exception) as ctx:
             extract_markdown_links(text)
         # Current implementation says "image(s)" even for links
-        self.assertIn("image", str(ctx.exception).lower())
+        self.assertIn("link", str(ctx.exception).lower())
 
     @unittest.expectedFailure
     def test_links_non_markdown_brackets_parens_should_not_match(self):

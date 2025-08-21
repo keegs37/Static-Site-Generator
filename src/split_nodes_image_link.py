@@ -19,7 +19,8 @@ def split_nodes_image(old_nodes):
        
         
         for i in range(len(tokens)): # The length of tokens will always be the same or more than the length of image
-            if not tokens[i].strip() and i < len(image): # If tokens[i] is whitespace and there is an image available to append
+        
+            if not tokens[i].split() and i < len(image): # If tokens[i] is whitespace and there is an image available to append
                 new_nodes.append(TextNode(image[i][0], TextType.IMAGE, image[i][1]))
                 
             elif tokens[i].strip():
@@ -47,7 +48,7 @@ def split_nodes_link(old_nodes):
         tokens = re.split(r'\[[^\]]+\]\([^\)]+\)', node.text)
     
         for i in range(len(tokens)):
-            if not tokens[i].strip() and i < len(link):
+            if not tokens[i].split() and i < len(link):
                 new_nodes.append(TextNode(link[i][0], TextType.LINK, link[i][1]))
                 
             elif tokens[i].strip():

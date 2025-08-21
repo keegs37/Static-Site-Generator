@@ -8,9 +8,10 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             continue
 
         text = node.text
-        # Only raise if delimiter is missing and text is not empty
+        # If delimiter not found just add it as is to the list
         if delimiter not in text and text != "":
-            raise Exception(f"No delimiter '{delimiter}' found in node {node}")
+            new_nodes.append(node)
+            continue
 
         while True:
             start_index = text.find(delimiter)

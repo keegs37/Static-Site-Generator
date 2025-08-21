@@ -50,10 +50,6 @@ class TestSplitNodesDelimiter(unittest.TestCase):
             split_nodes_delimiter([node], "`", TextType.CODE)
         self.assertIn('Closing delimiter "`" not found', str(cm.exception))
 
-    def test_missing_delimiter_in_text_raises(self):
-        node = TextNode("This is text with no delimiter", TextType.TEXT)
-        with self.assertRaises(Exception):
-            split_nodes_delimiter([node], "**", TextType.BOLD)
 
     def test_multiple_nodes(self):
         nodes = [
