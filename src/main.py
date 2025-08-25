@@ -8,16 +8,16 @@ def main():
     if len(sys.argv) > 1:
         basepath = sys.argv[1]
     else:
-        basepath = os.getcwd()
+        basepath = "/"
     public_folder = os.path.join(os.getcwd(), "docs")
     static_folder = os.path.join(os.getcwd(), "static")
     copy_static_to_public(public_folder, static_folder)
     
-    cd = basepath
+    cd = os.getcwd()
     content_path = os.path.join(cd, "content")
     template_path = os.path.join(cd, "template.html")
     dest_path = os.path.join(cd, "docs")
-    generate_pages_recursive(content_path, template_path, dest_path)
+    generate_pages_recursive(content_path, template_path, dest_path, basepath)
 
 
 if __name__ == "__main__":
