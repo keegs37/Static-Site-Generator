@@ -1,17 +1,22 @@
 from textnode import TextType, TextNode
 import os
+import sys
 from copy_static_to_public import copy_static_to_public
 from generate_page import generate_page
 from generate_pages_recursive import generate_pages_recursive
 def main():
-    public_folder = os.path.join(os.getcwd(), "public")
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+    else:
+        basepath = os.getcwd()
+    public_folder = os.path.join(os.getcwd(), "docs")
     static_folder = os.path.join(os.getcwd(), "static")
     copy_static_to_public(public_folder, static_folder)
-   
-    cd = os.getcwd()
+    
+    cd = basepath
     content_path = os.path.join(cd, "content")
     template_path = os.path.join(cd, "template.html")
-    dest_path = os.path.join(cd, "public")
+    dest_path = os.path.join(cd, "docs")
     generate_pages_recursive(content_path, template_path, dest_path)
 
 
