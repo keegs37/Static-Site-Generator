@@ -13,5 +13,5 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
             generate_page(src, template_path, md_to_htmL_file, basepath)
         else:
             os.makedirs(os.path.dirname(dest), exist_ok=True)
-            generate_pages_recursive(src, template_path, dest)
+            generate_pages_recursive(src, template_path, dest, basepath)
 
