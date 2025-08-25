@@ -59,10 +59,19 @@ def paragraph_block_to_html(paragraph_block):
     html_paragraph_node = ParentNode("p", children_nodes)
     return html_paragraph_node
 
-def heading_block_to_html(html_block, markdown_tag="# "):
-    children_nodes = text_to_children(html_block, markdown_tag)
-    html_heading_node = ParentNode("h1", children_nodes)
-    return html_heading_node
+def heading_block_to_html(html_block):
+    line = html_block.lstrip()
+    level = 0
+    for ch in line[:6]:
+        if ch == "#":
+            level += 1
+        else:
+            break
+    if level == 0 or len(line) <= level or line[level] != " ":
+        return paragraph_block_to_html(html_block)
+    content = line[level + 1:]
+    children_nodes = text_to_children(content)
+    return ParentNode(f"h{level}", children_nodes)
 
 def code_block_to_html(code_block):
     text_node = TextNode(code_block, TextType.TEXT)
