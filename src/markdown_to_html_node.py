@@ -38,16 +38,12 @@ def markdown_to_html_node(markdown):
     
     div_node = ParentNode("div", block_nodes)
 
-    return div_node.to_html().replace("\n"," ")
-
-
+    return div_node
 
 def text_to_children(text, markdown_tag=""):
     text_nodes = text_to_textnodes(text)
     child_nodes = []
     for node in text_nodes:
-        print(node)
-
         # Remove markdown tags from the html output
         if node.text.startswith(markdown_tag):
             node.text = node.text.replace(markdown_tag, "", 1)
@@ -55,9 +51,6 @@ def text_to_children(text, markdown_tag=""):
         # Remove markdown code tags from html output
         if node.text_type == "code":
             node.text = node.text.replace(markdown_tag, "")
-
-        
-
         child_nodes.append(text_node_to_html_node(node))
     return child_nodes
 
@@ -79,7 +72,7 @@ def code_block_to_html(code_block):
     html_code_node = ParentNode("codeblock", [child_node])
     return html_code_node
 
-def quote_block_to_html(quote_block, markdown_tag=">"):
+def quote_block_to_html(quote_block, markdown_tag="> "):
     children_nodes = text_to_children(quote_block, markdown_tag)
     html_quote_node = ParentNode("blockquote", children_nodes)
     return html_quote_node
